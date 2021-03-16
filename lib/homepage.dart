@@ -13,10 +13,34 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: gradientEndColor,
+      bottomNavigationBar: Container(
+        padding: const EdgeInsets.symmetric(vertical: 6),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(29), topRight: Radius.circular(29)),
+            color: navigationColor),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            IconButton(
+                onPressed: () {}, icon: Image.asset("assets/menu_icon.png")),
+            IconButton(
+                onPressed: () {}, icon: Image.asset("assets/search_icon.png")),
+            IconButton(
+                onPressed: () {}, icon: Image.asset("assets/profile_icon.png")),
+          ],
+        ),
+      ),
       body: Container(
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+          colors: [gradientStartColor, gradientEndColor],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        )),
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.all(32.0),
+            padding: const EdgeInsets.fromLTRB(32, 32, 32, 10),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -49,11 +73,17 @@ class _HomePageState extends State<HomePage> {
                   underline: SizedBox(),
                 ),
                 Container(
-                    height: 500,
+                    height: 478,
                     child: Swiper(
                       itemCount: planets.length,
                       itemWidth: MediaQuery.of(context).size.width - 2 * 64,
                       layout: SwiperLayout.STACK,
+                      pagination: SwiperPagination(
+                          builder: DotSwiperPaginationBuilder(
+                              activeSize: 20,
+                              activeColor: Colors.white,
+                              color: Colors.grey[300],
+                              space: 8)),
                       itemBuilder: (BuildContext context, index) {
                         return Stack(
                           children: [
@@ -121,7 +151,8 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 )
                               ],
-                            )
+                            ),
+                            Image.asset(planets[index].iconImage),
                           ],
                         );
                       },
